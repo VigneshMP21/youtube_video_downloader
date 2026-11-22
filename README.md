@@ -1,56 +1,73 @@
-# YouTube Video & Shorts Downloader (Python)
+# 🎬 YouTube Video & Shorts Downloader (Python)
 
-A powerful, reliable, and user-friendly Python program to download YouTube videos and YouTube Shorts in the **highest available quality** (4K, 2K, 1080p, 60fps, HDR) with dedicated optimizations for **long videos** (podcasts, documentaries, lectures, and live stream replays).
-
----
-
-## Key Features
-
-1. **Highest Quality Video & Audio**:
-   - Automatically downloads the highest video stream (4K/2K/1080p60) and combines it with the highest quality audio stream.
-   - Automatically merges them into a clean, universally playable `.mp4` file via FFmpeg.
-   
-2. **Optimized for Long Videos**:
-   - **Auto-Resume**: If your connection drops or you stop the download midway, re-running the script will automatically resume from where it stopped instead of starting over.
-   - **Multi-threaded Fragment Downloads**: Downloads video chunks concurrently for significantly higher speeds on long videos.
-   - **Connection Drop Protection**: Built with aggressive network retries (20 retries on fragment drop) and socket timeout guards to avoid indefinite hanging.
-   - **Real-time Live Progress Bar**: Shows percentage, downloaded size, total size, download speed, and ETA.
-
-3. **YouTube Shorts & Regular Videos**:
-   - Supports any YouTube URL format:
-     - Standard: `https://www.youtube.com/watch?v=VIDEO_ID`
-     - Shortened: `https://youtu.be/VIDEO_ID`
-     - Shorts: `https://www.youtube.com/shorts/VIDEO_ID`
-
-4. **Self-Healing FFmpeg Integration**:
-   - Automatically detects FFmpeg in your system PATH or utilizes `imageio-ffmpeg` directly, so you don't have to manually configure environment variables.
-
-5. **Two Execution Modes**:
-   - **Interactive Menu**: Run `python downloader.py` and simply paste your link.
-   - **Command Line (CLI)**: Automate or pass links directly as arguments.
-   - **Batch Download**: Download multiple videos at once from a `.txt` file.
+A simple, fast, and powerful Python tool to download YouTube videos and Shorts in the **highest available quality** (4K, 2K, 1080p, 60fps, HDR) with automatic audio merging and resume support for **long videos** (podcasts, documentaries, and streams).
 
 ---
 
-## Installation
+## 📌 Prerequisites (First Time Setup)
 
-Ensure you have Python installed, then install the dependencies:
+Before running the program, ensure you have **Python 3.8 or higher** installed on your computer.
+
+1. **Check if Python is installed:**
+   Open your Terminal (Command Prompt / PowerShell on Windows, or Terminal on Mac/Linux) and type:
+   ```bash
+   python --version
+   ```
+   *(If `python` is not recognized, try `python3 --version`).*
+
+2. **If Python is NOT installed:**
+   - Download and install it from the official website: [python.org/downloads](https://www.python.org/downloads/)
+   - ⚠️ **Important (Windows users):** During installation, make sure to check the box:
+     **☑ "Add python.exe to PATH"**
+
+---
+
+## 🚀 Step-by-Step Execution Guide (For First-Time Users)
+
+Follow these simple steps to run the downloader:
+
+### Step 1: Open the Project Folder in Terminal
+
+- **Windows:**
+  1. Open this folder in **File Explorer**.
+  2. Click on the address bar at the top of the file explorer window.
+  3. Type `cmd` and press **Enter**. A command prompt window will open directly in this folder.
+  
+  *(Alternative on Windows/Mac/VS Code: Right-click inside the folder and select "Open in Terminal" or "Open with VS Code").*
+
+- **Mac / Linux:**
+  Open Terminal and navigate to this folder:
+  ```bash
+  cd path/to/youtube_video_downloader
+  ```
+
+---
+
+### Step 2: Install Required Dependencies
+
+Install the required packages by running this command in your terminal:
 
 ```bash
 pip install -r requirements.txt
 ```
+*(On Mac/Linux, if needed, run `pip3 install -r requirements.txt`).*
+
+> **Note:** The requirements automatically set up `yt-dlp` and portable `imageio-ffmpeg`. You do **not** need to install or configure FFmpeg separately!
 
 ---
 
-## Usage
+### Step 3: Run the Program
 
-### 1. Interactive Mode (Easiest)
-Run the script without arguments:
+Start the interactive downloader:
+
 ```bash
 python downloader.py
 ```
-You will be greeted with an interactive menu:
-```
+*(Or `python3 downloader.py` on Mac/Linux).*
+
+You will see the main menu on your screen:
+
+```text
 ======================================================================
         YOUTUBE VIDEOS & SHORTS DOWNLOADER (HIGHEST QUALITY)        
 ======================================================================
@@ -61,34 +78,80 @@ You will be greeted with an interactive menu:
   5. Change Output Folder
   0. Exit
 ----------------------------------------------------------------------
+Enter choice (0-5) [default 1]:
 ```
 
-### 2. Quick Command-Line Mode
-Download any video or short directly in the highest quality:
+---
+
+### Step 4: Download a Video or Short
+
+1. Press **Enter** (to select option 1 - Highest Quality).
+2. **Copy** your YouTube link from your web browser or phone.
+   - Standard video example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ`
+   - YouTube Short example: `https://www.youtube.com/shorts/3jz_24qZ8E4`
+3. **Paste** the link into the terminal and press **Enter**.
+4. Watch the live progress bar:
+   ```text
+   [*] Fetching video details...
+   Title   : Me at the zoo
+   Channel : jawed
+   Duration: 00:19 (19s)
+   ----------------------------------------------------------------------
+   [*] Mode: HIGHEST QUALITY (Best Video + Best Audio)
+   [*] Starting download... (resume-enabled)
+   [██████████████████████████████] 100.0% | 218 KB / 218 KB | 1.47 MB/s | ETA: 00:00
+   [✓] Download stream completed. Merging video & audio...
+   [SUCCESS] Download completed in 00:06!
+   ```
+
+---
+
+### Step 5: Find Your Downloaded Video
+
+All downloaded videos and shorts are automatically saved inside the **`downloads/`** folder in this project directory:
+```text
+youtube_video_downloader/
+│
+├── downloads/                     <--- YOUR DOWNLOADED VIDEOS ARE HERE!
+│   └── Video Title [VIDEO_ID].mp4
+├── downloader.py
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## ⚡ Quick Command-Line Usage (Optional / Advanced)
+
+If you don't want to use the interactive menu, you can also pass links directly via command line:
+
+### 1. Download in Highest Quality directly:
 ```bash
-# Standard video
-python downloader.py "https://www.youtube.com/watch?v=EXAMPLE_ID"
-
-# YouTube Short
-python downloader.py "https://www.youtube.com/shorts/EXAMPLE_ID"
+python downloader.py "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
 
-### 3. Specify Quality Target
+### 2. Download a YouTube Short:
 ```bash
-# Up to 1080p
-python downloader.py "https://www.youtube.com/watch?v=EXAMPLE_ID" -q 1080p
-
-# Audio only (MP3)
-python downloader.py "https://www.youtube.com/watch?v=EXAMPLE_ID" -q audio
+python downloader.py "https://www.youtube.com/shorts/SHORT_ID"
 ```
 
-### 4. Custom Output Directory
+### 3. Download Audio Only (High-Bitrate MP3):
 ```bash
-python downloader.py "https://www.youtube.com/watch?v=EXAMPLE_ID" -o "D:/MyVideos"
+python downloader.py "https://www.youtube.com/watch?v=VIDEO_ID" -q audio
 ```
 
-### 5. Batch Download from a Text File
-Create a text file (e.g. `links.txt`) with one URL per line:
+### 4. Limit Quality to 1080p or 720p:
+```bash
+python downloader.py "https://www.youtube.com/watch?v=VIDEO_ID" -q 1080p
+```
+
+### 5. Custom Download Folder:
+```bash
+python downloader.py "https://www.youtube.com/watch?v=VIDEO_ID" -o "D:/MyVideos"
+```
+
+### 6. Batch Download Multiple Videos at Once:
+Create a text file called `links.txt` with one URL per line:
 ```text
 https://www.youtube.com/watch?v=video1
 https://www.youtube.com/shorts/short1
@@ -101,6 +164,22 @@ python downloader.py -b links.txt
 
 ---
 
-## Notes
-- Downloaded videos are saved to the `downloads/` folder by default.
-- If you interrupt a long video download (using `Ctrl+C`), running the command again will automatically resume the partial download!
+## 💡 Key Highlights
+
+- **Handles Long Videos (1h, 3h, 10h+)**: Built with concurrent fragment downloading for fast speeds and timeout guards.
+- **Auto-Resume**: If your internet disconnects midway through a large video, just run the command again with the same link — it resumes from where it stopped instead of starting from 0%.
+- **True Highest Quality**: Downloads separate high-bitrate video (e.g. 4K/1080p) and audio streams and merges them cleanly into `.mp4` using FFmpeg.
+- **Zero Complex Setup**: FFmpeg is automatically resolved by the script.
+
+---
+
+## ❓ Troubleshooting & FAQs
+
+- **Q: `'python'` or `'pip'` is not recognized as an internal or external command?**  
+  *Fix:* Make sure Python is added to your system PATH. Re-run the Python installer, choose "Modify", and check "Add Python to environment variables / PATH".
+
+- **Q: How do I pause or stop a download?**  
+  *Fix:* Press `Ctrl + C` in your terminal. Re-running the link later will automatically resume where it was interrupted.
+
+- **Q: Can I download private or age-restricted videos?**  
+  *Fix:* The downloader works on all public and unlisted YouTube videos and Shorts.
