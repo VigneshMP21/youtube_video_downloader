@@ -1,0 +1,3 @@
+# YouTube Video & Shorts Downloader Dependencies
+yt-dlp>=2024.1.1
+imageio-ffmpeg>=0.4.9
