@@ -22,9 +22,21 @@ Before running the program, ensure you have **Python 3.8 or higher** installed o
 
 ---
 
-## 🚀 Step-by-Step Execution Guide (For First-Time Users)
+## ⚡ Quick 1-Click Execution (Windows - Easiest!)
 
-Follow these simple steps to run the downloader:
+If you are on Windows, simply **double-click** the file:
+👉 **`run_downloader.bat`**
+
+It will automatically:
+1. Verify Python is installed.
+2. Automatically install any missing dependencies from `requirements.txt`.
+3. Launch the downloader ready for you to paste any YouTube link!
+
+---
+
+## 🚀 Step-by-Step Manual Execution Guide
+
+If you prefer using the terminal or are on Mac/Linux, follow these steps:
 
 ### Step 1: Open the Project Folder in Terminal
 
